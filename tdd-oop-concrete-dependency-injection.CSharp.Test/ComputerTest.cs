@@ -21,10 +21,11 @@ namespace tdd_oop_concrete_dependency_injection.CSharp.Test
             PowerSupply myPsu = new PowerSupply();
             Computer myPc = new Computer(myPsu);
 
-            myPc.installGame("Final Fantasy XI");
+            Game game = new Game("Final Fantasy XI");
+            myPc.installGame(game);
 
-            Assert.AreEqual(1, myPc.installedGames.Count());
-            Assert.AreEqual("Final Fantasy XI", myPc.installedGames[0].name);
+            Assert.AreEqual(1, myPc.InstalledGames.Count());
+            Assert.AreEqual("Final Fantasy XI", myPc.InstalledGames[0].name);
         }
 
         [Test]
@@ -32,9 +33,11 @@ namespace tdd_oop_concrete_dependency_injection.CSharp.Test
         {
             PowerSupply myPsu = new PowerSupply();
             Computer myPc = new Computer(myPsu);
+            Game game1 = new Game("Duck Game");
+            Game game2 = new Game("Dragon's Dogma: Dark Arisen");
 
-            myPc.installGame("Duck Game");
-            myPc.installGame("Dragon's Dogma: Dark Arisen");
+            myPc.installGame(game1);
+            myPc.installGame(game2);
 
             Assert.AreEqual("Playing Duck Game", myPc.playGame("Duck Game"));
             Assert.AreEqual("Playing Dragon's Dogma: Dark Arisen", myPc.playGame("Dragon's Dogma: Dark Arisen"));
@@ -50,11 +53,11 @@ namespace tdd_oop_concrete_dependency_injection.CSharp.Test
             preInstalled.Add(new Game("Baldur's Gate"));
 
 
-            Computer myPc = new Computer(myPsu);
+            Computer myPc = new Computer(myPsu, preInstalled);
 
-            Assert.AreEqual(2, myPc.installedGames.Count());
-            Assert.AreEqual("Dwarf Fortress", myPc.installedGames[0].name);
-            Assert.AreEqual("Baldur's Gate", myPc.installedGames[1].name);
+            Assert.AreEqual(2, myPc.InstalledGames.Count());
+            Assert.AreEqual("Dwarf Fortress", myPc.InstalledGames[0].name);
+            Assert.AreEqual("Baldur's Gate", myPc.InstalledGames[1].name);
         }
     }
 }
